@@ -8,6 +8,8 @@ usePackage("shinydashboard")
 usePackage("plotrix")
 usePackage("rlist")
 
+options(shiny.sanitize.errors = FALSE)
+
 source('air_parameters.R')
 source('init_values.R')
 source('acoustic_models.R')
