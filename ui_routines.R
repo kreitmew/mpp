@@ -30,3 +30,23 @@ placeCircles <- function(porosity, radius, x.ld, y.ld, x.ru, y.ru){
                  x.ld + 0.5 * d.x + l/2, y.ld + 0.5 * d.x + l/2))
   
 }
+
+downloadValuesToExcel <- function(){
+  
+  # library(gWidgetsRGtk2)
+  # library(cairoDevice)
+  # library(xlsx)
+  # library(gWidgets)
+  # options("guiToolkit"="RGtk2")
+  # 
+  # yerdata <- mtcars
+  # 
+  # source(gfile("Save yerdata", type = "save", handler = function(h, ...)
+  # {
+  #   write.xlsx(yerdata, file = paste(h$file, ".xlsx", sep = "", collapse = NULL), sheetName = "values", 
+  #              col.names = TRUE, row.names = TRUE, append = FALSE)
+  # }))
+  
+  # download button functionality in shiny
+  
+}

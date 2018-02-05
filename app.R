@@ -63,21 +63,28 @@ ui <- dashboardPage(
       
       tabItem(tabName = "mpp_cavern",
               tags$head(
-                tags$style(HTML('#resetMPPButton{background-color:rgb(153, 230, 153)}'))
+                tags$style(HTML('#resetMPPButton{background-color:rgb(153, 230, 153)}')),
+                tags$style(type='text/css', "#resetMPPButton { width:75%; margin-top: 25px;}"),
+                tags$style(HTML('#downloadMPPButton{background-color:rgb(255, 128, 128)}')),
+                tags$style(type='text/css', "#downloadMPPButton { width:75%; margin-top: 25px;}"),
+                tags$style(HTML('#docuMPP{background-color:rgb(255, 214, 153)}')),
+                tags$style(type='text/css', "#docuMPP { width:75%; margin-top: 25px;}")                
               ),     
-              tags$style(type='text/css', "#resetMPPButton { width:80%; margin-top: 25px;}"),
+               
               splitLayout(h2("Mehrschichtsystem Mikrolochplatte - Luftkaverne"), 
+                          actionButton("downloadMPPButton", "Werte herunterladen (Excel)"),
                           actionButton("resetMPPButton", "Ruecksetzen auf Vorschlagswerte"),
-                          cellWidths = c("70%", "30%"),
+                          cellWidths = c("50%", "20%", "30%"),
                           cellArgs = list(align="center")),
               br(),
-              splitLayout(numericInput("thresh", "Oberkante Absorptionsfenster [0.1 bis 0.95]:", 0.8, 
+              splitLayout(actionButton("docuMPP", "Dokumentation"),
+                          numericInput("thresh", "Oberkante Absorptionsfenster [0.1 bis 0.95]:", 0.8, 
                                        min = 0.1, max = 0.95, step = 0.01),
                           numericInput("leftEdge", "Linke Kante Absorptionsfenster [50 Hz bis 1000 Hz]:", 350, 
                                        min = 50, max = 1000, step = 5),
                           numericInput("rightEdge", "Rechte Kante Absorptionsfenster [1100 Hz bis 4000 Hz]:", 2500, 
                                        min = 1100, max = 4000, step = 10),                          
-                          cellWidths = c("33%", "33%", "34%"),
+                          cellWidths = c("13%", "27%", "28%", "32%"),
                           cellArgs = list(align="center")),
               
               fluidPage(
