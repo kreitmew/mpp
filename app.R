@@ -2,6 +2,7 @@ library(shinydashboard)
 library(plotrix)
 library(rlist)
 library(xlsx)
+library(markdown)
 
 options(shiny.sanitize.errors = FALSE)
 
@@ -9,6 +10,11 @@ source('air_parameters.R')
 source('init_values.R')
 source('acoustic_models.R')
 source('ui_routines.R')
+
+source("panel_thickness.R", local = TRUE)
+source("panel_radius.R", local = TRUE)
+source("panel_porosity.R", local = TRUE)
+source("panel_cavern.R", local = TRUE)
 
 
 ui <- dashboardPage(
@@ -88,10 +94,10 @@ ui <- dashboardPage(
               
               fluidPage(
                 fluidRow(
-                  column(width = 3, source("panel_thickness.R")),
-                  column(width = 3, source("panel_radius.R")),
-                  column(width = 3, source("panel_porosity.R")),
-                  column(width = 3, source("panel_cavern.R"))      
+                  column(width = 3, boxPanelThickness()),
+                  column(width = 3, boxPanelRadius()),
+                  column(width = 3, boxPanelPorosity()),
+                  column(width = 3, boxPanelCavern())      
                 ),
                 fluidRow(
                   column(width = 4, plotOutput('plotMPPGeometry')),
@@ -114,7 +120,17 @@ server <- function(input, output, session) {
   observeEvent(input$sbmenu, source("update_basic_values.R", local = TRUE))
   
   observeEvent(input$goButton, source("update_basic_values.R", local = TRUE))
-
+  
+  observeEvent(input$docuMPP, 
+               showModal(modalDialog(
+                 title = "",
+                 includeMarkdown("docu_mpp.md"),
+                 easyClose = TRUE,
+                 footer = NULL,
+                 size = "l"
+               )) 
+               )
+  
   observeEvent(input$resetButton, {
     updateNumericInput(session, "temp", value = Tc)
     updateNumericInput(session, "press", value = pda)
