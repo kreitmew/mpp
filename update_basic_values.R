@@ -4,6 +4,7 @@ g_dvi <<- round(calcDynamicViscosityAir(input$temp)*10^5, digits = 3)
 g_aid <<- round(calcAirDensity(input$press, input$temp, input$humid/100), digits = 3)
 g_imp <<- round(calcAcousticImpedanceOfAir(input$press, input$temp, input$humid/100), digits = 1)
 
+
 output$infoBoxVaporPressure <- renderInfoBox({
   infoBox(value = g_vpw, title = g_vpw_descr, 
           icon = icon("dashboard", lib = "glyphicon"), width = 10)

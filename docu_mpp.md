@@ -11,6 +11,6 @@ Die Berechnung beruht auf dem Modell von Atalla und Sgard [1] in Kombination mit
 
 ## Literatur
 
-[1] Atalla, Noureddine, und Franck Sgard. "Modeling of perforated plates and screens using rigid frame porous models." Journal of sound and vibration 303.1-2 (2007): 195-208.
+[1] Atalla, Noureddine und Sgard, Franck. "Modeling of perforated plates and screens using rigid frame porous models." Journal of sound and vibration 303.1-2 (2007): 195-208.
 
 [2] Fackler, Cameron Jeff. "Bayesian model selection for analysis and design of multilayer sound absorbers." (2014).

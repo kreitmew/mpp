@@ -80,3 +80,6 @@ downloadValuesToExcel <- function(basic.values, panel.thickness,
              col.names = TRUE, row.names = FALSE, append = TRUE) 
   
 }
+
+
+

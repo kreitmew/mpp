@@ -3,6 +3,9 @@ library(plotrix)
 library(rlist)
 library(xlsx)
 library(markdown)
+library(rmarkdown)
+library(grDevices)
+
 
 options(shiny.sanitize.errors = FALSE)
 
@@ -72,24 +75,28 @@ ui <- dashboardPage(
                 tags$style(type='text/css', "#resetMPPButton { width:75%; margin-top: 25px;}"),
                 tags$style(HTML('#downloadMPPButton{background-color:rgb(255, 128, 128)}')),
                 tags$style(type='text/css', "#downloadMPPButton { width:75%; margin-top: 25px;}"),
+                tags$style(HTML('#downloadMPPcharts{background-color:rgb(255, 128, 128)}')),
+                tags$style(type='text/css', "#downloadMPPcharts { width:75%; margin-top: 25px;}"),
                 tags$style(HTML('#docuMPP{background-color:rgb(255, 214, 153)}')),
                 tags$style(type='text/css', "#docuMPP { width:75%; margin-top: 25px;}")                
-              ),     
-               
-              splitLayout(h2("Mehrschichtsystem Mikrolochplatte - Luftkaverne"), 
+              ),
+              fluidPage(fluidRow(
+                column(width = 12, align = "center", h2("Mehrschichtsystem Mikrolochplatte - Luftkaverne"))
+              )),
+              splitLayout(actionButton("docuMPP", "Dokumentation"), 
                           downloadButton("downloadMPPButton", "Werte herunterladen (Excel)"),
+                          downloadButton("downloadMPPcharts", "Grafiken herunterladen (pdf)"),
                           actionButton("resetMPPButton", "Ruecksetzen auf Vorschlagswerte"),
-                          cellWidths = c("50%", "20%", "30%"),
+                          cellWidths = c("25%", "25%", "25%", "25%"),
                           cellArgs = list(align="center")),
               br(),
-              splitLayout(actionButton("docuMPP", "Dokumentation"),
-                          numericInput("thresh", g_absorption_window_thresh_descr, g_thresh, 
+              splitLayout(numericInput("thresh", g_absorption_window_thresh_descr, g_thresh, 
                                        min = g_thresh_min, max = g_thresh_max, step = g_thresh_step),
                           numericInput("leftEdge", g_absorption_window_leftEdge_descr, g_leftEdge, 
                                        min = g_leftEdge_min, max = g_leftEdge_max, step = g_leftEdge_step),
                           numericInput("rightEdge", g_absorption_window_rightEdge_descr, g_rightEdge, 
                                        min = g_rightEdge_min, max = g_rightEdge_max, step = g_rightEdge_step),                          
-                          cellWidths = c("13%", "27%", "28%", "32%"),
+                          cellWidths = c("33%", "33%", "34%"),
                           cellArgs = list(align="center")),
               
               fluidPage(
@@ -144,7 +151,7 @@ server <- function(input, output, session) {
   output$plotMPPHoles <- renderPlot( source("plot_mpp_holes.R", local = TRUE))  
   
   output$plotMPPAbsorber <- renderPlot(source("plot_absorption.R", local = TRUE))
-    
+  
   output$downloadMPPButton <- downloadHandler(
       filename = function() {
         paste("mpp_data", ".xlsx", sep = "")
@@ -171,6 +178,25 @@ server <- function(input, output, session) {
                               file)
       }
     )
+  
+  output$downloadMPPcharts <- downloadHandler(
+    filename = function() {
+      paste("mpp_charts", ".pdf", sep = "")
+    },
+    content = function(file) {
+
+      tempReport <- file.path(tempdir(), "mpp_charts.Rmd")
+      file.copy("mpp_charts.Rmd", tempReport, overwrite = TRUE)
+      
+      params <- list(date = paste(" ", Sys.time(), sep=""), 
+                     absorption = list(g_chart_values, g_chart_holes, g_chart_absorption))
+      
+      rmarkdown::render(tempReport, output_file = file,
+                        params = params,
+                        envir = new.env(parent = globalenv()))      
+      
+    }
+  )
   
     
 }

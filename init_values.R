@@ -77,14 +77,14 @@ g_thresh_step <<- 0.01
 g_absorption_window_thresh_descr <<- 
   paste("Oberkante Absorptionsfenster (", g_thresh_min, " bis ", g_thresh_max, ")", sep = "")
 
-g_leftEdge <<- 350
+g_leftEdge <<- 355
 g_leftEdge_min <<- 50
 g_leftEdge_max <<- 1000
 g_leftEdge_step <<- 5
 g_absorption_window_leftEdge_descr <<- 
   paste("Linke Kante Absorptionsfenster (", g_leftEdge_min, " Hz bis ", g_leftEdge_max, " Hz)", sep = "")
 
-g_rightEdge <<- 2500
+g_rightEdge <<- 2470
 g_rightEdge_min <<- 1100
 g_rightEdge_max <<- 4000
 g_rightEdge_step <<- 10
@@ -101,5 +101,7 @@ g_lb_absorption <<- 100
 g_ub_absorption <<- 4500
 g_no_of_calc_points <<- 50
 
-
-
+# chart
+g_chart_absorption <<- NULL
+g_chart_values <<- NULL
+g_chart_holes <<- NULL

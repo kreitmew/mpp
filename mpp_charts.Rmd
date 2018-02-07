@@ -1,0 +1,20 @@
+---
+title: "Grafiken zum Mehrschichtensytem Mikroplatte - Luftkaverne"
+output: pdf_document
+params:
+   date: ""
+   absorption: as.list("empty chart")
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Ausdruck vom `r params$date`
+
+```{r}
+params$absorption[[1]]
+params$absorption[[2]]
+params$absorption[[3]]
+```
+

@@ -27,3 +27,5 @@ segments(input$d1ui + input$d2ui + input$d3ui + input$t1ui + input$t2ui + input$
 
 axis( side=1 )
 title("Systemaufbau - Querschnitt - massstabsgetreu")
+
+g_chart_values <<- recordPlot()

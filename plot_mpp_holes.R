@@ -30,3 +30,5 @@ do.call(draw.circle, do.call(placeCircles , c(list(input$phi3ui, input$r3ui), pl
 do.call(draw.circle, do.call(placeCircles , c(list(input$phi3ui, input$r3ui), placeCellPanel(9, 9)[[3]]))[c(8,9,1)])
 text(7,7.8, g_dist_holes_panel3_descr)
 text(7,7.3,input$r3ui * (pi / input$phi3ui)^0.5)
+
+g_chart_holes <<- recordPlot()
