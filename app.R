@@ -88,78 +88,15 @@ ui <- dashboardPage(
               
               fluidPage(
                 fluidRow(
-                  column(width = 3,
-                         box(
-                           title = g_thickness_descr, 
-                           status = "primary", solidHeader = TRUE, width = NULL,
-                           splitLayout(h5(g_thickness_panel1_descr), 
-                                       numericInput("t1ui", label = NULL, t1, 
-                                                    min = tmin, max = tmax, step = (tmax - tmin)/tgrid)),
-                           splitLayout(h5(g_thickness_panel2_descr), 
-                                       numericInput("t2ui", label = NULL, t2,
-                                                    min = tmin, max = tmax, step = (tmax - tmin)/tgrid)),
-                           splitLayout(h5(g_thickness_panel3_descr), 
-                                       numericInput("t3ui", label = NULL, t3,
-                                                    min = tmin, max = tmax, step = (tmax - tmin)/tgrid))
-                         )
-                         ),
-                  column(width = 3,
-                         box(
-                           title = g_radius_descr, 
-                           status = "primary", solidHeader = TRUE, width = NULL,
-                           splitLayout(h5(g_radius_panel1_descr), 
-                                       numericInput("r1ui", label = NULL, r1,
-                                                    min = rmin, max = rmax, step = (rmax - rmin)/rgrid)),
-                           splitLayout(h5(g_radius_panel2_descr), 
-                                       numericInput("r2ui", label = NULL, r2,
-                                                    min = rmin, max = rmax, step = (rmax - rmin)/rgrid)),
-                           splitLayout(h5(g_radius_panel3_descr), 
-                                       numericInput("r3ui", label = NULL, r3,
-                                                    min = rmin, max = rmax, step = (rmax - rmin)/rgrid))
-                         )                                                  
-                         ),
-                  column(width = 3,
-                         box(
-                           title = g_porosity_descr, 
-                           status = "primary", solidHeader = TRUE, width = NULL,
-                           splitLayout(h5(g_porosity_panel1_descr), 
-                                       numericInput("phi1ui", label = NULL, phi1,
-                                                    min = phimin, max = phimax, step = (phimax - phimin)/phigrid)),
-                           splitLayout(h5(g_porosity_panel2_descr), 
-                                       numericInput("phi2ui", label = NULL, phi2,
-                                                    min = phimin, max = phimax, step = (phimax - phimin)/phigrid)),
-                           splitLayout(h5(g_porosity_panel3_descr), 
-                                       numericInput("phi3ui", label = NULL, phi3,
-                                                    min = phimin, max = phimax, step = (phimax - phimin)/phigrid))
-                         )               
-                         ),
-                  column(width = 3,
-                        box(
-                          title = g_cavern_descr, 
-                          status = "primary", solidHeader = TRUE, width = NULL,
-                          splitLayout(h5(g_cavern_panel1_descr), 
-                                      numericInput("d1ui", label = NULL, d1,
-                                                   min = dmin, max = dmax, step = (dmax - dmin)/dgrid)),
-                          splitLayout(h5(g_cavern_panel2_descr), 
-                                      numericInput("d2ui", label = NULL, d2,
-                                                   min = dmin, max = dmax, step = (dmax - dmin)/dgrid)),
-                          splitLayout(h5(g_cavern_panel3_descr), 
-                                      numericInput("d3ui", label = NULL, d3,
-                                                   min = dmin, max = dmax, step = (dmax - dmin)/dgrid))
-                        ))      
-                  
+                  column(width = 3, source("panel_thickness.R")),
+                  column(width = 3, source("panel_radius.R")),
+                  column(width = 3, source("panel_porosity.R")),
+                  column(width = 3, source("panel_cavern.R"))      
                 ),
                 fluidRow(
-                  column(width = 4,
-                         plotOutput('plotMPPGeometry')
-                         ),
-                  column(width = 4,
-                         plotOutput('plotMPPHoles')
-                  ),                  
-                  column(width = 4,
-                         plotOutput('plotMPPAbsorber')
-                  )
-                    
+                  column(width = 4, plotOutput('plotMPPGeometry')),
+                  column(width = 4, plotOutput('plotMPPHoles')),                  
+                  column(width = 4, plotOutput('plotMPPAbsorber'))
                 )
               )
       )
