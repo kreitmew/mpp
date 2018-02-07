@@ -14,7 +14,13 @@ Ausdruck vom `r params$date`
 
 ```{r}
 params$absorption[[1]]
+```
+
+```{r}
 params$absorption[[2]]
+```
+
+```{r}
 params$absorption[[3]]
 ```
 
