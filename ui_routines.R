@@ -82,4 +82,82 @@ downloadValuesToExcel <- function(basic.values, panel.thickness,
 }
 
 
+calcCount <- function(l, r, lhole){
+  n <- floor((l-r)/lhole + (lhole - 2*r)/lhole)
+  return(n)
+}
+
+calcCoordinatesHoles <- function(l,b,r,lhole, shift){
+  origin <- c(shift, 2 * r, 2 * r)
+  df <- NULL
+  for (i in c(1:calcCount(b, r, lhole))){
+    for (j in c(1:calcCount(l, r, lhole))){
+      if (is.null(df)){
+        df <- origin
+      } else {
+        delta <- c( 0, (j-1) * lhole, (i-1) * lhole )
+        df <- rbind(df, origin + delta)
+      }
+    }
+  }
+  return(df)
+}
+
+
+drawRectangle <- function(l, b, t, start){
+  x <- rep(start,8)
+  y <- c(0,l,l,l,l,0,0,0)
+  z <- c(0,0,0,b,b,b,b,0)
+  segments3d(x,y,z, col = "blue")
+  segments3d(x+t,y,z, col = "blue")
+  Vectorize(FUN = function(i){segments3d(c(x[i], x[i]+t),c(y[i], y[i]),c(z[i], z[i]), col = "blue")},
+            vectorize.args = "i")(c(1,2,4,6))
+}
+
+
+drawTube <- function(x,y,z,r,t){
+  ctr <- c(x, y, z)
+  tube <- cylinder3d(center = rbind(ctr, c(ctr[1] + t, ctr[2:3])), radius = r, sides = 50)
+  shade3d(tube, col = "blue", alpha=0.2)
+}
+
+drawMultipleTubes <- Vectorize(drawTube, vectorize.args = c("x", "y", "z"))
+
+prepareInputRGL <- function(d, t, r, por){
+  lhole.panel <- r * (pi / por)^0.5 
+  l.panel <- 5 * max(lhole.panel) 
+  b.panel <- 0.66 * l.panel
+  n <- 1000
+  return(list(n*l.panel, n*b.panel, n*t, n*d, n*lhole.panel, n*r))
+}
+
+
+generateRGLExample <- function(l.panel, b.panel, t.panel, d.panel, lhole.panel, radius.panel){
+  open3d(useNULL=T)
+  c.shift <- c(0, d.panel[1] + t.panel[1], d.panel[1] + t.panel[1] + d.panel[2] + t.panel[2])
+  for (i in c(1,2,3)) {
+    drawRectangle(l.panel, b.panel, t.panel[i], c.shift[i])
+    df <- calcCoordinatesHoles(l.panel, b.panel, radius.panel[i], lhole.panel[i], c.shift[i])
+    drawMultipleTubes(df[,1], df[,2], df[,3], radius.panel[i], t.panel[i])
+  }
+  s <- sum(d.panel) + sum(t.panel)
+  drawRectangle(l.panel, b.panel, 0.01 * s, s)
+  axes3d()
+  title3d(xlab="X in mm", ylab="Y in mm", zlab="Z in mm")
+  par3d(viewport = c(0,0,14,8))
+  rgl.viewpoint(userMatrix = 
+                  rotationMatrix(0, 0, 0, 1) %*% rotationMatrix(pi/5, 0, 1, 0) %*% rotationMatrix(-pi/2, 1, 0, 0)
+                  %*% t(translationMatrix(0,0,0)), 
+                zoom = 0.8, interactive = TRUE )
+  rglwidget()
+}
+
+
+
+
+
+
+
+
+
 

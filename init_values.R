@@ -105,3 +105,20 @@ g_no_of_calc_points <<- 50
 g_chart_absorption <<- NULL
 g_chart_values <<- NULL
 g_chart_holes <<- NULL
+
+############
+
+#Laenge
+l.panel <<- 2
+#Breite
+b.panel <<- 1.5
+#Dicke - variiert
+t.panel <<- c(0.2, 0.15, 0.4)
+#Abstaende zwischen den Platten und der Wand
+d.panel <<- c(2, 1.8, 1.4)
+#Lochabstand auf jeder Platte
+lhole.panel <<- c(0.5, 0.5, 0.3)
+#Lochradius auf jeder Platte
+radius.panel <- c(0.1, 0.1, 0.07)
+
+

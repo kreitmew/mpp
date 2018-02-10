@@ -2,7 +2,7 @@
 
 ## Grunds&auml;tzliches
 
-Mit der vorliegenden App k&ouml;nnen drei mikroperforierten Platten und drei Luftkavernen als Schichtensystem in ihrer akustischen Absorptionseigenschaft berechnet und simuliert werden. Dazu wird angenommen, dass das Schichtensystem an eine schallundurchl&auml;ssige Wand angrenzt. Ferner wird in der Modellbildung davon ausgegangen, dass die L&ouml;cher in den Platten im submillimetrischen Bereich liegen. 
+Mit der vorliegenden App k&ouml;nnen drei mikroperforierte Platten und drei Luftkavernen als Schichtensystem in ihrer akustischen Absorptionseigenschaft berechnet und simuliert werden. Dazu wird angenommen, dass das Schichtensystem an eine schallundurchl&auml;ssige Wand angrenzt. Ferner wird in der Modellbildung davon ausgegangen, dass die L&ouml;cher in den Platten im submillimetrischen Bereich liegen. 
 
 ## Modellbildung
 
