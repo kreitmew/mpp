@@ -5,31 +5,31 @@
 # Plattendicke: t_1,...,t_N
 # Lochradius: r_1,...,r_N
 # Porositaet: phi_1,...,phi_N
-N <- 3
-tmin <- 0.001
-tmax <- 0.005
-tgrid <- 100
-t1 <- 0.00156
-t2 <- 0.00156
-t3 <- 0.00220
-rmin <- 0.0001
-rmax <- 0.0005
-rgrid <- 100
-r1 <- 0.00025
-r2 <- 0.000202
-r3 <- 0.000203
-phimin <- 0.01
-phimax <- 0.20
-phigrid <- 80
-phi1 <- 0.0902
-phi2 <- 0.0491
-phi3 <- 0.0216
-dmin <- 0.01
-dmax <- 0.05
-dgrid <- 40
-d1 <- 0.0307
-d2 <- 0.0322
-d3 <- 0.0375
+N <<- 3
+tmin <<- 0.001
+tmax <<- 0.005
+tgrid <<- 100
+t1 <<- 0.00156
+t2 <<- 0.00156
+t3 <<- 0.00220
+rmin <<- 0.0001
+rmax <<- 0.0005
+rgrid <<- 100
+r1 <<- 0.00025
+r2 <<- 0.000202
+r3 <<- 0.000203
+phimin <<- 0.01
+phimax <<- 0.20
+phigrid <<- 80
+phi1 <<- 0.0902
+phi2 <<- 0.0491
+phi3 <<- 0.0216
+dmin <<- 0.01
+dmax <<- 0.05
+dgrid <<- 40
+d1 <<- 0.0307
+d2 <<- 0.0322
+d3 <<- 0.0375
 
 # Temperatur, Druck, relative Feuchte
 Tc <- 20
@@ -92,9 +92,8 @@ g_absorption_window_rightEdge_descr <<-
   paste("Rechte Kante Absorptionsfenster (", g_rightEdge_min, " Hz bis ", g_rightEdge_max, " Hz)", sep = "")
 
 # Lochabstaende
-g_dist_holes_panel1_descr <<- "Platte 1 - Lochabstand in m"
-g_dist_holes_panel2_descr <<- "Platte 2 - Lochabstand in m"
-g_dist_holes_panel3_descr <<- "Platte 3 - Lochabstand in m"
+g_dist_holes_name <<- "Platte"
+g_dist_holes_expl <<- "Lochabstand (Mitte - Mitte) in m:"
 
 # Berechnung Absorptionskennlinie
 g_lb_absorption <<- 100
@@ -106,19 +105,5 @@ g_chart_absorption <<- NULL
 g_chart_values <<- NULL
 g_chart_holes <<- NULL
 
-############
-
-#Laenge
-l.panel <<- 2
-#Breite
-b.panel <<- 1.5
-#Dicke - variiert
-t.panel <<- c(0.2, 0.15, 0.4)
-#Abstaende zwischen den Platten und der Wand
-d.panel <<- c(2, 1.8, 1.4)
-#Lochabstand auf jeder Platte
-lhole.panel <<- c(0.5, 0.5, 0.3)
-#Lochradius auf jeder Platte
-radius.panel <- c(0.1, 0.1, 0.07)
 
 

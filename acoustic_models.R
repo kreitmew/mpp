@@ -79,3 +79,51 @@ calcAbsorptionMPP <- function(f, g_environ, g_mpp, model.fname){
 }
 
 calcAbsorptionMPPVec <- Vectorize(calcAbsorptionMPP, vectorize.args = "f")
+
+
+minIntegrandSA <- function(f, f0, f1, A, g_environ, g_mpp, model.fname){
+  integrand <- 0
+  if ((f >= f0) & (f <= f1)){
+    integrand <- max(A - calcAbsorptionMPP(f, g_environ, g_mpp, model.fname), 0)
+  }
+  return(integrand)
+}
+
+minSA <- function(f0, f1, A, g_environ, g_mpp, model.fname){
+  f.helper <- function(f){
+    minIntegrandSA(f, f0, f1, A, g_environ, g_mpp, model.fname)
+  }
+  return(integrate(Vectorize(f.helper), lower = f0, upper = f1)$value)
+}
+
+convertIntoList <- function(arg){
+  mpp_arg <- list(list(arg[1], arg[2], arg[3]),
+                  list(arg[4], arg[5], arg[6]),
+                  list(arg[7], arg[8], arg[9]),
+                  list(arg[10], arg[11], arg[12]))
+  return(mpp_arg)
+}
+
+
+calcSA <- function(f0, f1, A, g_environ, g_mpp, model.fname){
+
+  f.optim <- function(arg){
+    return(minSA(f0, f1, A, g_environ, convertIntoList(arg), model.fname))
+  }
+  
+  lower <- rep(c(dmin, tmin, rmin, phimin), each = 3)
+  upper <- rep(c(dmax, tmax, rmax, phimax), each = 3)
+  
+  out.GenSA <- GenSA(par = unlist(g_mpp), 
+                     fn = f.optim,
+                     lower = lower, 
+                     upper = upper,
+                     control=list(max.call = 1e2))
+  
+  return(convertIntoList(out.GenSA$par))
+}
+
+
+
+
+

@@ -69,8 +69,12 @@ downloadValuesToExcel <- function(basic.values, panel.thickness,
              col.names = FALSE, row.names = TRUE, append = TRUE) 
   
   df <- data.frame(unlist(panel.hole.dist))
-  rownames(df) <- c(g_dist_holes_panel1_descr, g_dist_holes_panel2_descr, 
-                    g_dist_holes_panel3_descr)
+  # rownames(df) <- c(g_dist_holes_panel1_descr, g_dist_holes_panel2_descr, 
+  #                   g_dist_holes_panel3_descr)
+  rownames(df) <- c(paste(g_dist_holes_name, " 1 - ", g_dist_holes_expl, sep = ""),
+    paste(g_dist_holes_name, " 2 - ", g_dist_holes_expl, sep = ""), 
+    paste(g_dist_holes_name, " 3 - ", g_dist_holes_expl, sep = ""))
+  
   write.xlsx(df, file = path, sheetName = "Lochabstaende",
              col.names = FALSE, row.names = TRUE, append = TRUE) 
   
@@ -151,7 +155,6 @@ generateRGLExample <- function(l.panel, b.panel, t.panel, d.panel, lhole.panel, 
                 zoom = 0.8, interactive = TRUE )
   rglwidget()
 }
-
 
 
 
