@@ -3,8 +3,8 @@ placeCellPanel <- function(x.length, y.length){
    
   x.unit <- (x.length / 3)
   y.unit <- (y.length / 3)
-  rect1.lb.x <- 0.05 * x.unit
-  rect1.lb.y <- 0.05 * y.unit
+  rect1.lb.x <- ( 0.05 - 0.3 ) * x.unit
+  rect1.lb.y <- ( 0.05 - 0.0 ) * y.unit
 
   rect1.ru.x <- rect1.lb.x + 0.9 * x.unit
   rect1.ru.y <- rect1.lb.y + 0.9 * y.unit    
@@ -148,7 +148,7 @@ generateRGLExample <- function(l.panel, b.panel, t.panel, d.panel, lhole.panel, 
   drawRectangle(l.panel, b.panel, 0.01 * s, s)
   axes3d()
   title3d(xlab="X in mm", ylab="Y in mm", zlab="Z in mm")
-  par3d(viewport = c(0,0,14,8))
+  par3d(viewport = c(0,0,14,8), windowRect = c(0,0, 1200, 1200))
   rgl.viewpoint(userMatrix = 
                   rotationMatrix(0, 0, 0, 1) %*% rotationMatrix(pi/5, 0, 1, 0) %*% rotationMatrix(-pi/2, 1, 0, 0)
                   %*% t(translationMatrix(0,0,0)), 
@@ -157,6 +157,21 @@ generateRGLExample <- function(l.panel, b.panel, t.panel, d.panel, lhole.panel, 
 }
 
 
+convertListToDataFrame <- function(mpp.list){
+  vec <- unlist(mpp.list)
+  df <- data.frame(vec[c(1,2,3)])
+  df <- cbind(df, vec[c(4,5,6)])
+  df <- cbind(df, vec[c(7,8,9)])
+  df <- cbind(df, vec[c(10,11,12)])
+  colnames(df) <- c(g_cavern_descr,
+                    g_thickness_descr,
+                    g_radius_descr,
+                    g_porosity_descr)
+  rownames(df) <- c("Platte 1", "Platte 2", "Platte 3")
+  df <- df[,c(2,3,4,1)]
+  
+  return(df)
+}
 
 
 

@@ -124,12 +124,32 @@ server <- function(input, output, session) {
         session$onSessionEnded(function() {
           rgl.close()
         })        
-      }      
+      }
+
+      
+    )
+  })
+  
+  observeEvent(input$tabs, {
+    isolate(
+      if ( input$tabs == "tabOpt" ){
+        output$protValues <- renderTable(
+          bordered = TRUE, 
+          rownames = TRUE,
+          digits = 5,
+          caption = "<b> <span style='color:#000000'> Aktuelle Maskenwerte </b>",
+          caption.placement = getOption("xtable.caption.placement", "bottom"), 
+          caption.width = getOption("xtable.caption.width", NULL),
+          {convertListToDataFrame(list(list(input$d1ui, input$d2ui, input$d3ui),
+                                       list(input$t1ui, input$t2ui, input$t3ui),
+                                       list(input$r1ui, input$r2ui, input$r3ui),
+                                       list(input$phi1ui, input$phi2ui, input$phi3ui)))}) 
+      }
     )
   })
   
 
-  resultText <- eventReactive(input$startSA, {
+  observeEvent(input$startSA, {
 
     withProgress(message = "Optimierungsberechnung laeuft.....das kann bis zu einer Minute dauern", value = 0.5, {
       calc.result <- calcSA(input$leftEdge, 
@@ -143,14 +163,23 @@ server <- function(input, output, session) {
                     model.fname = "calcSurfaceResistanceRuiz")
       
       isolate({ source("update_mpp_values.R", local = TRUE) })
+      #paste(toString(unlist(calc.result))," -> berechnete Werte sind in die Simulationsmaske uebernommen worden")
       
-      paste(toString(unlist(calc.result))," -> berechnete Werte sind in die Simulationsmaske uebernommen worden")
+      isolate({
+        output$protValues <- renderTable(
+          bordered = TRUE, 
+          rownames = TRUE,
+          digits = 5,
+          caption = "<b> <span style='color:#000000'> Diese berechneten Werte sind in die Simulationsmaske uebernommen worden. </b>",
+          caption.placement = getOption("xtable.caption.placement", "bottom"), 
+          caption.width = getOption("xtable.caption.width", NULL),
+          {convertListToDataFrame(calc.result)})        
+      })
+
     })
   })
   
-  output$protText <- renderText({
-    resultText()
-  })
+
   
   
 }

@@ -10,7 +10,9 @@ fluidRow(column(width = 12,
                                                  tags$style(HTML('#downloadMPPcharts{background-color:rgb(255, 128, 128)}')),
                                                  tags$style(type='text/css', "#downloadMPPcharts { width:75%; margin-top: 25px;}"),
                                                  tags$style(HTML('#docuMPP{background-color:rgb(255, 214, 153)}')),
-                                                 tags$style(type='text/css', "#docuMPP { width:75%; margin-top: 25px;}")
+                                                 tags$style(type='text/css', "#docuMPP { width:75%; margin-top: 25px;}"),
+                                                 tags$style(HTML('#startSA{background-color:rgb(232,232,232)}')),
+                                                 tags$style(type='text/css', "#startSA { width:20%; margin-top: 25px; margin-bottom: 25px;}")
                                                ),
                                                fluidPage(fluidRow(
                                                  column(width = 12, align = "center", h2("Mehrschichtsystem Mikrolochplatte - Luftkaverne"))
@@ -70,20 +72,21 @@ fluidRow(column(width = 12,
                                                  column(width = 12, align = "center", 
                                                         h5("Ausgehend von dem in der Simulation definierten Absorptionsfenster wird
                                                            mit Hilfe eines stochastischen Suchalgorithmus (Simulated Annealing)
-                                                           versucht eine Konfiguration der Bauparameter (Plattendicke, Lochradius,
+                                                           versucht, eine Konfiguration der Bauparameter (Plattendicke, Lochradius,
                                                            Porositaet, Kavernendicke) zu bestimmen, dessen Absorptionskennlinie
                                                            die Vorgaben des Absorptionsfensters moeglichst einhaelt."))
                                                         ),
                                                fluidRow(
                                                  column(width = 12, align = "center",
-                                                        box(width = 12, 
-                                                            actionButton("startSA", "Start der Suchroutine"))
+                                                        actionButton("startSA", "Start der Suchroutine")
                                                  )
                                                ),
                                                fluidRow(
                                                  column(width = 12, align = "center",
                                                         box(width = 12, 
-                                                            verbatimTextOutput("protText"))
+                                                            tableOutput("protValues"),
+                                                            background = "olive"
+                                                            )
                                                  )
                                                )
                                                         )                                    
