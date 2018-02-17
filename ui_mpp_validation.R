@@ -1,0 +1,20 @@
+output$errortext <- renderText({
+  
+  validate(checkInputValueGeneric(dmin, dmax, input$d1ui, g_cavern_panel1_descr)) 
+  validate(checkInputValueGeneric(dmin, dmax, input$d2ui, g_cavern_panel2_descr)) 
+  validate(checkInputValueGeneric(dmin, dmax, input$d3ui, g_cavern_panel3_descr)) 
+  validate(checkInputValueGeneric(tmin, tmax, input$t1ui, g_thickness_panel1_descr)) 
+  validate(checkInputValueGeneric(tmin, tmax, input$t2ui, g_thickness_panel2_descr)) 
+  validate(checkInputValueGeneric(tmin, tmax, input$t3ui, g_thickness_panel3_descr)) 
+  validate(checkInputValueGeneric(rmin, rmax, input$r1ui, g_radius_panel1_descr))
+  validate(checkInputValueGeneric(rmin, rmax, input$r2ui, g_radius_panel2_descr))
+  validate(checkInputValueGeneric(rmin, rmax, input$r3ui, g_radius_panel3_descr))
+  validate(checkInputValueGeneric(phimin, phimax, input$phi1ui, g_porosity_panel1_descr))
+  validate(checkInputValueGeneric(phimin, phimax, input$phi2ui, g_porosity_panel2_descr))
+  validate(checkInputValueGeneric(phimin, phimax, input$phi3ui, g_porosity_panel3_descr))
+  
+  validate(checkInputValueGeneric(g_thresh_min, g_thresh_max, input$thresh, g_absorption_window_thresh_descr))
+  validate(checkInputValueGeneric(g_leftEdge_min, g_leftEdge_max, input$leftEdge, g_absorption_window_leftEdge_descr))
+  validate(checkInputValueGeneric(g_rightEdge_min, g_rightEdge_max, input$rightEdge, g_absorption_window_rightEdge_descr))
+  
+}) 

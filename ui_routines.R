@@ -174,8 +174,34 @@ convertListToDataFrame <- function(mpp.list){
 }
 
 
+checkInputValueGeneric <- function(lb, ub, input, type.value){
+  if (is.numeric(input) == FALSE){
+    return(paste("Bitte numerischen Wert (", type.value, ") eingeben!", sep =""))
+  } else {
+    if ( input < lb ) {
+      return(paste(paste("Wert (", type.value, ") unterschreitet die Untergrenze von ", sep = ""), lb, sep =""))
+    } else {
+      if ( input > ub ) {
+        return(paste(        paste("Wert (", type.value, ") ueberschreitet die Obergrenze von ", sep = ""), ub, sep =""))
+      } else { return(NULL)  }
+    }
+  }
+}
 
 
-
+roundValue <- function(xmin, xmax, dx, x){
+  
+  l <- floor((x - xmin)/dx)
+  x0 <- xmin + l*dx
+  x1 <- xmin + (l+1)*dx
+  if ((x - x0) < (x1 - x)) {
+    x <- x0
+  } else {
+    x <- x1
+  }
+  x <- max(x0, min(x, xmax))
+  return(x)
+  
+}
 
 

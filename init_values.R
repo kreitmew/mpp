@@ -32,9 +32,18 @@ d2 <<- 0.0322
 d3 <<- 0.0375
 
 # Temperatur, Druck, relative Feuchte
-Tc <- 20
-pda <- 101325
-rh <- 0.4
+Tc <<- 20
+Tcmin <<- -100
+Tcmax <<- 100
+pda <<- 101325
+pdamin <<- 0
+pdamax <<- 200000
+rh <<- 0.4
+rhmin <<- 0
+rhmax <<- 1
+
+# Nachommastellen Wertetabelle Optimierungstab
+g_digit <<- 6
 
 # Basiswerte
 g_vpw <<- round(calcVaporPressureOfWater(Tc), digits = 0)

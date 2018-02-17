@@ -5,14 +5,17 @@ fluidRow(column(width = 12,
                                                tags$head(
                                                  tags$style(HTML('#resetMPPButton{background-color:rgb(153, 230, 153)}')),
                                                  tags$style(type='text/css', "#resetMPPButton { width:75%; margin-top: 25px;}"),
+                                                 tags$style(HTML('#resetSA{background-color:rgb(153, 230, 153)}')),
+                                                 tags$style(type='text/css', "#resetSA { width:50%; margin-top: 25px;}"),
                                                  tags$style(HTML('#downloadMPPButton{background-color:rgb(255, 128, 128)}')),
                                                  tags$style(type='text/css', "#downloadMPPButton { width:75%; margin-top: 25px;}"),
                                                  tags$style(HTML('#downloadMPPcharts{background-color:rgb(255, 128, 128)}')),
                                                  tags$style(type='text/css', "#downloadMPPcharts { width:75%; margin-top: 25px;}"),
                                                  tags$style(HTML('#docuMPP{background-color:rgb(255, 214, 153)}')),
                                                  tags$style(type='text/css', "#docuMPP { width:75%; margin-top: 25px;}"),
-                                                 tags$style(HTML('#startSA{background-color:rgb(232,232,232)}')),
-                                                 tags$style(type='text/css', "#startSA { width:20%; margin-top: 25px; margin-bottom: 25px;}")
+                                                 tags$style(HTML('#startSA{background-color:rgb(255, 128, 128)}')),
+                                                 tags$style(type='text/css', "#startSA { width:50%; margin-top: 25px; margin-bottom: 25px;}"),
+                                                 tags$style(HTML(".shiny-output-error-validation { color: red; font-weight: bold; }"))
                                                ),
                                                fluidPage(fluidRow(
                                                  column(width = 12, align = "center", h2("Mehrschichtsystem Mikrolochplatte - Luftkaverne"))
@@ -40,6 +43,7 @@ fluidRow(column(width = 12,
                                                    column(width = 3, boxPanelPorosity()),
                                                    column(width = 3, boxPanelCavern())
                                                  ),
+                                                 fluidRow(width = 12, textOutput("errortext")),
                                                  fluidRow(
                                                    column(width = 4, plotOutput('plotMPPGeometry')),
                                                    column(width = 4, plotOutput('plotMPPHoles')),
@@ -69,16 +73,23 @@ fluidRow(column(width = 12,
                                                  column(width = 12, align = "center", h2("Optimierung der Absorptionseigenschaften"))
                                                ),
                                                fluidRow(
-                                                 column(width = 12, align = "center", 
+                                                 column(width = 12, align = "left", 
                                                         h5("Ausgehend von dem in der Simulation definierten Absorptionsfenster wird
                                                            mit Hilfe eines stochastischen Suchalgorithmus (Simulated Annealing)
                                                            versucht, eine Konfiguration der Bauparameter (Plattendicke, Lochradius,
                                                            Porositaet, Kavernendicke) zu bestimmen, dessen Absorptionskennlinie
-                                                           die Vorgaben des Absorptionsfensters moeglichst einhaelt."))
+                                                           die Vorgaben des Absorptionsfensters moeglichst einhaelt. Die Bauparameter 
+                                                           werden dabei innerhalb bestimmter Grenzen variiert. Die Grenzen dieses
+                                                           Suchraums koennen je Parameter weiter eingeengt werden (siehe Dialog 
+                                                           weiter unten) um konstruktiven Vorgaben gerecht zu werden bzw. die
+                                                           Suche zu beschleunigen."))
                                                         ),
                                                fluidRow(
-                                                 column(width = 12, align = "center",
+                                                 column(width = 6, align = "center",
                                                         actionButton("startSA", "Start der Suchroutine")
+                                                 ),
+                                                 column(width = 6, align = "center",
+                                                        actionButton("resetSA", "Suchraumbegrenzung auf Standardwerte")
                                                  )
                                                ),
                                                fluidRow(
@@ -88,8 +99,40 @@ fluidRow(column(width = 12,
                                                             background = "olive"
                                                             )
                                                  )
+                                               ),
+                                               fluidRow(
+                                                 column(width = 12, align = "center",
+                                                        h3("Einschraenkung des Suchraums")
+                                                 )
+                                               ),
+                                               fluidRow(
+                                                 column(3,
+                                                        h4(g_thickness_descr),
+                                                        boxPanelOptimThickness1(),
+                                                        boxPanelOptimThickness2(),
+                                                        boxPanelOptimThickness3()
+                                                 ),
+                                                 column(3,
+                                                        h4(g_radius_descr),
+                                                        boxPanelOptimRadius1(),
+                                                        boxPanelOptimRadius2(),
+                                                        boxPanelOptimRadius3()
+                                                 ),
+                                                 column(3,
+                                                        h4(g_porosity_descr),
+                                                        boxPanelOptimPoros1(),
+                                                        boxPanelOptimPoros2(),
+                                                        boxPanelOptimPoros3()
+                                                 ),
+                                                 column(3,
+                                                        h4(g_cavern_descr),
+                                                        boxPanelOptimCavern1(),
+                                                        boxPanelOptimCavern2(),
+                                                        boxPanelOptimCavern3()
+                                                 )                                                 
                                                )
-                                                        )                                    
+                                               
+                                            )                                    
                                       
                                       )
                           ) 

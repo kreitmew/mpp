@@ -105,25 +105,58 @@ convertIntoList <- function(arg){
 }
 
 
-calcSA <- function(f0, f1, A, g_environ, g_mpp, model.fname){
+calcSA <- function(f0, f1, A, g_environ, g_mpp, model.fname, lower, upper){
 
+  if ( checkMPPParametersOnError(lower, upper) == FALSE ) {
+    stop()
+  }
+  
   f.optim <- function(arg){
     return(minSA(f0, f1, A, g_environ, convertIntoList(arg), model.fname))
   }
-  
-  lower <- rep(c(dmin, tmin, rmin, phimin), each = 3)
-  upper <- rep(c(dmax, tmax, rmax, phimax), each = 3)
   
   out.GenSA <- GenSA(par = unlist(g_mpp), 
                      fn = f.optim,
                      lower = lower, 
                      upper = upper,
-                     control=list(max.call = 1e2))
+                     control=list(max.call = 1e2, seed = -11))
   
+  out.GenSA$par[c(1,2,3)] <- Vectorize(roundValue, 
+                                       vectorize.args = c("x"))(dmin, dmax, (dmax - dmin)/dgrid, out.GenSA$par[c(1,2,3)])
+  out.GenSA$par[c(4,5,6)] <- Vectorize(roundValue, 
+                                       vectorize.args = c("x"))(tmin, tmax, (tmax - tmin)/tgrid, out.GenSA$par[c(4,5,6)])
+  out.GenSA$par[c(7,8,9)] <- Vectorize(roundValue, 
+                                       vectorize.args = c("x"))(rmin, rmax, (rmax - rmin)/rgrid, out.GenSA$par[c(7,8,9)])
+  out.GenSA$par[c(10,11,12)] <- Vectorize(roundValue, 
+                                       vectorize.args = c("x"))(phimin, phimax, (phimax - phimin)/phigrid, out.GenSA$par[c(10,11,12)])  
+    
   return(convertIntoList(out.GenSA$par))
 }
 
 
+checkMPPParametersOnError <- function(lower, upper){
+  
+  val.check.min <- function(min, value){
+    if (value >= min) { return(TRUE)  } else { return(FALSE) }
+  }
+  val.check.max <- function(max, value){
+    if (value <= max) { return(TRUE)  } else { return(FALSE) }
+  }
+  val.check.min.list <- Vectorize(val.check.min, vectorize.args = c("value"))
+  val.check.max.list <- Vectorize(val.check.max, vectorize.args = c("value"))
 
+  return(
+    as.logical(prod(c(
+      as.logical(prod(val.check.min.list(dmin, lower[c(1,2,3)]))),
+      as.logical(prod(val.check.min.list(tmin, lower[c(4,5,6)]))),
+      as.logical(prod(val.check.min.list(rmin, lower[c(7,8,9)]))),
+      as.logical(prod(val.check.min.list(phimin, lower[c(10,11,12)]))),
+      as.logical(prod(val.check.max.list(dmax, upper[c(1,2,3)]))),
+      as.logical(prod(val.check.max.list(tmax, upper[c(4,5,6)]))),
+      as.logical(prod(val.check.max.list(rmax, upper[c(7,8,9)]))),
+      as.logical(prod(val.check.max.list(phimax, upper[c(10,11,12)])))
+    )))
+  )
+}
 
 
