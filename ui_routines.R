@@ -69,8 +69,7 @@ downloadValuesToExcel <- function(basic.values, panel.thickness,
              col.names = FALSE, row.names = TRUE, append = TRUE) 
   
   df <- data.frame(unlist(panel.hole.dist))
-  # rownames(df) <- c(g_dist_holes_panel1_descr, g_dist_holes_panel2_descr, 
-  #                   g_dist_holes_panel3_descr)
+
   rownames(df) <- c(paste(g_dist_holes_name, " 1 - ", g_dist_holes_expl, sep = ""),
     paste(g_dist_holes_name, " 2 - ", g_dist_holes_expl, sep = ""), 
     paste(g_dist_holes_name, " 3 - ", g_dist_holes_expl, sep = ""))
