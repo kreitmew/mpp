@@ -26,8 +26,8 @@ calcSurfaceResistance <- function(pda, Tc, rh, f, r, t, phi){
 
 calcSurfaceResistanceRuiz <- function(pda, Tc, rh, f, r, t, phi){
   Rs <- (0.5 * calcDynamicViscosityAir(Tc) * calcOmega(f) * calcAirDensity(pda, Tc, rh))^(0.5)
-  ee <- 0.425 * r * (1 - 1.14 * phi^0.5)
-  zmpp <- (t + 2 * ee) * ( complex(r = 1, i = 1) * 4 * Rs / (phi * r) + 
+  ee <- 0.425 * (2 * r) * (1 - 1.14 * phi^0.5)
+  zmpp <- (t + 2 * ee) * ( complex(r = 1, i = 1) * 4 * Rs / (phi * (2 * r)) + 
                              iunit * calcOmega(f) * calcAirDensity(pda, Tc, rh) / phi  )
   return(zmpp)
 }
