@@ -144,7 +144,7 @@ uiTabPanelMPP <- function(){
                                                    column(width = 12, align = "left", 
                                                           h5("Die in dieser Grafik dargestellten Absorptionskennlinien beziehen sich
                                                               alle auf das gleiche Mehrschichtensystem, stammen jedoch von verschiedenen
-                                                              Akustikmodellen. Für Simulation und Optimierung findet ausschliesslich 
+                                                              Akustikmodellen. Fuer Simulation und Optimierung findet ausschliesslich 
                                                               Modell 1 Verwendung. Die anderen Modelle werden nur hier zum Vergleich
                                                               dargestellt. Welche genauen physikalischen Ansaetze bzw. Naeherungen
                                                               den jeweiligen Modellen
