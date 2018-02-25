@@ -10,6 +10,9 @@ library(rgl)
 library(htmlwidgets)
 library(GenSA)
 library(shinyjs)
+library(ggplot2)
+library(plotly)
+library(Bessel)
 
 
 options(shiny.sanitize.errors = FALSE)
@@ -72,6 +75,16 @@ server <- function(input, output, session) {
                )) 
                )
   
+  observeEvent(input$docuModels, 
+               showModal(modalDialog(
+                 title = "",
+                 includeMarkdown("docu_models.md"),
+                 easyClose = TRUE,
+                 footer = NULL,
+                 size = "l"
+               )) 
+  )
+  
   observeEvent(input$resetButton, {
     updateNumericInput(session, "temp", value = Tc)
     updateNumericInput(session, "press", value = pda)
@@ -86,6 +99,8 @@ server <- function(input, output, session) {
   
   output$plotMPPAbsorber <- renderPlot(source("plot_absorption.R", local = TRUE))
   
+  source("plot_models.R", local = TRUE)
+
   output$downloadMPPButton <- downloadHandler(
       filename = function() {
         paste("mpp_data", ".xlsx", sep = "")

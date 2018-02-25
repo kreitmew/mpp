@@ -204,3 +204,56 @@ roundValue <- function(xmin, xmax, dx, x){
 }
 
 
+generatePlotModels <- function(f.band, g_environ, g_mpp, abs.window){
+  
+  d.points <- data.frame(cbind(f.band, calcAbsorptionMPPVec(f.band,
+                         g_environ = g_environ,
+                         g_mpp = g_mpp,
+                         model.fname = "calcSurfaceResistanceRuiz")))
+
+  d.points <- cbind(d.points, calcAbsorptionMPPVec(f.band,
+                                                   g_environ = g_environ,
+                                                   g_mpp = g_mpp,
+                                                   model.fname = "calcSurfaceResistance"))
+  
+  d.points <- cbind(d.points, calcAbsorptionMPPVec(f.band,
+                                                   g_environ = g_environ,
+                                                   g_mpp = g_mpp,
+                                                   model.fname = "calcSurfaceResistanceAtallaSgardSimple"))
+  
+  d.points <- cbind(d.points, calcAbsorptionMPPVec(f.band,
+                                                   g_environ = g_environ,
+                                                   g_mpp = g_mpp,
+                                                   model.fname = "calcSurfaceResistanceMaaExact"))
+
+  
+  
+  # d.points <- cbind(d.points, calcAbsorptionMPPVec(f.band,
+  #                                                  g_environ = g_environ,
+  #                                                  g_mpp = g_mpp,
+  #                                                  model.fname = "calcSurfaceResistanceAtallaSgard"))
+  
+  
+  colnames(d.points) <- c("x", "y1", "y2", "y3", "y4")
+  cols <- c("Modell 1" = "1", "Modell 2" = "2", "Modell 3" = "3", "Modell 4" = "4")
+  p <- ggplot(data = d.points, aes(x=x, y = c(y1, y2, y3, y4, y5))) +
+       theme_bw() +
+       geom_line(aes(y = y1, linetype = "Modell 1")) +
+       geom_line(aes(y = y2, linetype = "Modell 2")) +
+       geom_line(aes(y = y3, linetype = "Modell 3")) + 
+       geom_line(aes(y = y4, linetype = "Modell 4")) +
+       scale_linetype_manual(name = "Modelle", values = cols) +
+       ggtitle(g_main_descr) +
+       xlab(g_x_axis_descr) +
+       ylab(g_y_axis_descr) + 
+       geom_segment(aes(x = abs.window[[1]], y = 0, xend = abs.window[[1]], yend = abs.window[[3]]), color = "red") + 
+       geom_segment(aes(x = abs.window[[1]], y = abs.window[[3]], xend = abs.window[[2]], yend = abs.window[[3]]), color = "red") +
+       geom_segment(aes(x = abs.window[[2]], y = abs.window[[3]], xend = abs.window[[2]], yend = 0), color = "red")     
+
+  return(ggplotly(p))
+  
+}
+
+
+
+

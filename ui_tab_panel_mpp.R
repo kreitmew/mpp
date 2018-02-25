@@ -14,6 +14,8 @@ uiTabPanelMPP <- function(){
                                                    tags$style(type='text/css', "#downloadMPPcharts { width:75%; margin-top: 25px;}"),
                                                    tags$style(HTML('#docuMPP{background-color:rgb(255, 214, 153)}')),
                                                    tags$style(type='text/css', "#docuMPP { width:75%; margin-top: 25px;}"),
+                                                   tags$style(HTML('#docuModels{background-color:rgb(255, 214, 153)}')),
+                                                   tags$style(type='text/css', "#docuModels { width:75%; margin-top: 25px;}"),
                                                    tags$style(HTML('#startSA{background-color:rgb(255, 128, 128)}')),
                                                    tags$style(type='text/css', "#startSA { width:50%; margin-top: 25px; margin-bottom: 25px;}"),
                                                    tags$style(HTML(".shiny-output-error-validation { color: red; font-weight: bold; }"))
@@ -133,6 +135,32 @@ uiTabPanelMPP <- function(){
                                                    )                                                 
                                                  )
                                                  
+                                                          ),
+                                        tabPanel("Akustiksystem - Modellvergleich", value = "tabModel",
+                                                 fluidRow(
+                                                   column(width = 12, align = "center", h2("Absorptionskennlinien verschiedener Modelle"))
+                                                 ),
+                                                 fluidRow(
+                                                   column(width = 12, align = "left", 
+                                                          h5("Die in dieser Grafik dargestellten Absorptionskennlinien beziehen sich
+                                                              alle auf das gleiche Mehrschichtensystem, stammen jedoch von verschiedenen
+                                                              Akustikmodellen. Für Simulation und Optimierung findet ausschliesslich 
+                                                              Modell 1 Verwendung. Die anderen Modelle werden nur hier zum Vergleich
+                                                              dargestellt. Welche genauen physikalischen Ansaetze bzw. Naeherungen
+                                                              den jeweiligen Modellen
+                                                              zu Grunde liegen, wird weiter unten erlaeutert. Die Grafik ist interaktiv, 
+                                                              d.h. der Anwender kann in die Grafik hineinzoomen und einzelne Funktionswerte
+                                                              werden in einem Kontextmenue ausgegeben. Die Grafik kann auch als png-Datei
+                                                              heruntergeladen werden. Zum besseren Vergleich kann man auch gezielt Kurven
+                                                              miteinander vergleichen, indem durch Klick auf die betreffende Legende einzelne
+                                                              Kurven ein- bzw. ausgeblendet werden koennen."))
+                                                 ),
+                                                 fluidRow(
+                                                   column(width = 12, align = "center", plotlyOutput('plotMPPModels'))
+                                                 ),
+                                                 fluidRow(
+                                                   column(width = 3, align = "left", actionButton("docuModels", "Erlaeuterungen zu den Modellen"))
+                                                 )
                                                           )                                    
                                         
                                         )

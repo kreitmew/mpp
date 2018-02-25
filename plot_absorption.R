@@ -6,7 +6,7 @@
                                          list(input$r1ui, input$r2ui, input$r3ui),
                                          list(input$phi1ui, input$phi2ui, input$phi3ui)),
                             model.fname = "calcSurfaceResistanceRuiz"),
-       type = "l", xaxt="n", xlab = "Frequenz", ylab = "Absorptionskoeffizient", main = "Absorptionskennlinie")
+       type = "l", xaxt="n", xlab = g_x_axis_descr, ylab = g_y_axis_descr, main = g_main_descr)
 
 
   axis(1, xaxp = c(g_lb_absorption, g_ub_absorption, 10), las =2)

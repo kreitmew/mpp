@@ -33,6 +33,85 @@ calcSurfaceResistanceRuiz <- function(pda, Tc, rh, f, r, t, phi){
 }
 
 
+# calcSurfaceResistanceAtallaSgard <- function(pda, Tc, rh, f, r, t, phi){
+#   
+#   number.prandtl <- 0.718
+#   gamma <- 1.4
+#   e <- 0.425 * (2 * r) * (1 - 1.14 * phi^0.5)
+#   alpha.inf <- 1 + ( 2 * e ) / t
+#   sigma <- 8 * calcDynamicViscosityAir(Tc) / (phi * r * r)
+#   root <- sqrt(1 + iunit * 4 * calcOmega(f) * calcAirDensity(pda, Tc, rh) *
+#                  alpha.inf * alpha.inf * calcDynamicViscosityAir(Tc) / (( sigma * phi * r )^2) )
+# 
+#   bulk <- sqrt(1 + iunit * calcOmega(f) * calcAirDensity(pda, Tc, rh) *
+#                  number.prandtl * r * r / (16 * calcDynamicViscosityAir(Tc)) )
+# 
+# 
+#   rho <- ( ( calcAirDensity(pda, Tc, rh) * alpha.inf) ) *
+#     ( 1 + root * sigma * phi / ( iunit * calcOmega(f) * calcAirDensity(pda, Tc, rh) * alpha.inf ) )
+# 
+#   modul.inner.bracket <- (1 + iunit * calcAirDensity(pda, Tc, rh) * calcOmega(f) * 
+#                             number.prandtl * r * r / ( 16 * calcDynamicViscosityAir(Tc) ))
+#   
+#   modul.outer.bracket <- 1 + 8 * calcDynamicViscosityAir(Tc) * sqrt(modul.inner.bracket) / 
+#     ( iunit * r * r * number.prandtl * calcAirDensity(pda, Tc, rh) * calcOmega(f) )
+#     
+#   modul <- gamma * pda / ( gamma - (gamma - 1) / modul.outer.bracket )
+# 
+#   zmpp <- sqrt(rho * modul)
+#   return(zmpp)
+#   
+# }
+
+
+calcSurfaceResistanceAtallaSgardSimple <- function(pda, Tc, rh, f, r, t, phi){
+  
+  e <- 0.425 * (2 * r) * (1 - 1.14 * phi^0.5)
+  alpha.inf <- 1 + ( 2 * e ) / t
+  sigma <- 8 * calcDynamicViscosityAir(Tc) / (phi * r * r)
+  
+  root <- sqrt(1 + iunit * 4 * calcOmega(f) * calcAirDensity(pda, Tc, rh) *
+                 alpha.inf * alpha.inf * calcDynamicViscosityAir(Tc) / (( sigma * phi * r )^2) )
+  
+  rho <- ( ( calcAirDensity(pda, Tc, rh) * alpha.inf) ) *
+    ( 1 + root * sigma * phi / ( iunit * calcOmega(f) * calcAirDensity(pda, Tc, rh) * alpha.inf ) )
+  
+  zmpp <- iunit * rho * t * calcOmega(f) / phi
+  return(zmpp)
+  
+}
+
+
+calcSurfaceResistanceMaaExact <- function(pda, Tc, rh, f, r, t, phi){
+  
+  d <- 2*r
+  s <- d * sqrt(calcOmega(f) * calcAirDensity(pda, Tc, rh) / (4 *  calcDynamicViscosityAir(Tc)))
+  eps <- sqrt(phi)
+  b.arg <- s * sqrt(-1 * iunit)
+  bracket <- 1 - (2 / (s * sqrt(iunit))) * BesselK(b.arg, 1) / BesselK(b.arg, 0) 
+  
+  zmpp <- sqrt(2) * calcDynamicViscosityAir(Tc) * s / ( phi * d ) +
+          (iunit * calcOmega(f) * calcAirDensity(pda, Tc, rh) / phi) *
+          ( 0.85 * d / calcFokFunction(eps) +
+              t / bracket )
+  
+  return(zmpp)
+  
+}
+
+
+
+calcFokFunction <- function(eps){
+  
+  fok <- 1 - 1.4092 * eps + 0.33818 * eps^3 + 0.06793 * eps^5 - 
+             0.02287 * eps^6 + 0.03015 * eps^7  - 0.01641 * eps^8
+  fok <- 1/fok
+  return(fok)
+  
+}
+
+
+
 calcImpedanceBackedMPP <- function(pda, Tc, rh, f, d, Zs){
   beta <- calcBeta(f, Tc)
   Z <- calcAcousticImpedanceOfAir(pda, Tc, rh)

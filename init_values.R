@@ -114,6 +114,12 @@ g_chart_absorption <<- NULL
 g_chart_values <<- NULL
 g_chart_holes <<- NULL
 
+# Beschriftung Absorptionskennlinie
+g_x_axis_descr <<- "Frequenz"
+g_y_axis_descr <<- "Absorptionskoeffizient"
+g_main_descr <<- "Absorptionskennlinie"
+
+
 
 
 
