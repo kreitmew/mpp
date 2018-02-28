@@ -159,6 +159,8 @@ calcAbsorptionMPP <- function(f, g_environ, g_mpp, model.fname){
 
 calcAbsorptionMPPVec <- Vectorize(calcAbsorptionMPP, vectorize.args = "f")
 
+calcAbsorptionMPPVecModels <- Vectorize(calcAbsorptionMPPVec, vectorize.args = "model.fname")
+
 
 minIntegrandSA <- function(f, f0, f1, A, g_environ, g_mpp, model.fname){
   integrand <- 0

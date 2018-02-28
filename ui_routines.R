@@ -78,7 +78,11 @@ downloadValuesToExcel <- function(basic.values, panel.thickness,
              col.names = FALSE, row.names = TRUE, append = TRUE) 
   
   df <- df.absorption
-  colnames(df) <- c("Frequenz", "Absorptionswert")
+  colnames(df) <- c("Frequenz", 
+                    "Absorptionswert_Modell_1",
+                    "Absorptionswert_Modell_2", 
+                    "Absorptionswert_Modell_3", 
+                    "Absorptionswert_Modell_4")
   write.xlsx(df, file = path, sheetName = "Absorptionskennline",
              col.names = TRUE, row.names = FALSE, append = TRUE) 
   
