@@ -203,11 +203,11 @@ calcSA <- function(f0, f1, A, g_environ, g_mpp, model.fname, lower, upper){
                      control=list(max.call = 1e2, seed = -11))
   
   out.GenSA$par[c(1,2,3)] <- Vectorize(roundValue, 
-                                       vectorize.args = c("x"))(dmin, dmax, (dmax - dmin)/dgrid, out.GenSA$par[c(1,2,3)])
+                                       vectorize.args = c("x"))(dmin, dmax, (dmax - dmin)/dgrid, 1000 * out.GenSA$par[c(1,2,3)])
   out.GenSA$par[c(4,5,6)] <- Vectorize(roundValue, 
-                                       vectorize.args = c("x"))(tmin, tmax, (tmax - tmin)/tgrid, out.GenSA$par[c(4,5,6)])
+                                       vectorize.args = c("x"))(tmin, tmax, (tmax - tmin)/tgrid, 1000 * out.GenSA$par[c(4,5,6)])
   out.GenSA$par[c(7,8,9)] <- Vectorize(roundValue, 
-                                       vectorize.args = c("x"))(rmin, rmax, (rmax - rmin)/rgrid, out.GenSA$par[c(7,8,9)])
+                                       vectorize.args = c("x"))(rmin, rmax, (rmax - rmin)/rgrid, 1000 * out.GenSA$par[c(7,8,9)])
   out.GenSA$par[c(10,11,12)] <- Vectorize(roundValue, 
                                        vectorize.args = c("x"))(phimin, phimax, (phimax - phimin)/phigrid, out.GenSA$par[c(10,11,12)])  
     
@@ -228,13 +228,13 @@ checkMPPParametersOnError <- function(lower, upper){
 
   return(
     as.logical(prod(c(
-      as.logical(prod(val.check.min.list(dmin, lower[c(1,2,3)]))),
-      as.logical(prod(val.check.min.list(tmin, lower[c(4,5,6)]))),
-      as.logical(prod(val.check.min.list(rmin, lower[c(7,8,9)]))),
+      as.logical(prod(val.check.min.list(dmin/1000, lower[c(1,2,3)]))),
+      as.logical(prod(val.check.min.list(tmin/1000, lower[c(4,5,6)]))),
+      as.logical(prod(val.check.min.list(rmin/1000, lower[c(7,8,9)]))),
       as.logical(prod(val.check.min.list(phimin, lower[c(10,11,12)]))),
-      as.logical(prod(val.check.max.list(dmax, upper[c(1,2,3)]))),
-      as.logical(prod(val.check.max.list(tmax, upper[c(4,5,6)]))),
-      as.logical(prod(val.check.max.list(rmax, upper[c(7,8,9)]))),
+      as.logical(prod(val.check.max.list(dmax/1000, upper[c(1,2,3)]))),
+      as.logical(prod(val.check.max.list(tmax/1000, upper[c(4,5,6)]))),
+      as.logical(prod(val.check.max.list(rmax/1000, upper[c(7,8,9)]))),
       as.logical(prod(val.check.max.list(phimax, upper[c(10,11,12)])))
     )))
   )

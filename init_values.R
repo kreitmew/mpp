@@ -6,30 +6,30 @@
 # Lochradius: r_1,...,r_N
 # Porositaet: phi_1,...,phi_N
 N <<- 3
-tmin <<- 0.001
-tmax <<- 0.005
-tgrid <<- 100
-t1 <<- 0.00156
-t2 <<- 0.00156
-t3 <<- 0.00220
-rmin <<- 0.0001
-rmax <<- 0.0005
+tmin <<- 0.5
+tmax <<- 5
+tgrid <<- 150
+t1 <<- 1.56
+t2 <<- 1.56
+t3 <<- 2.20
+rmin <<- 0.1
+rmax <<- 0.5
 rgrid <<- 100
-r1 <<- 0.000125
-r2 <<- 0.000101
-r3 <<- 0.0001015
+r1 <<- 0.125
+r2 <<- 0.101
+r3 <<- 0.1015
 phimin <<- 0.01
 phimax <<- 0.16
 phigrid <<- 80
 phi1 <<- 0.0902
 phi2 <<- 0.0491
 phi3 <<- 0.0216
-dmin <<- 0.01
-dmax <<- 0.05
+dmin <<- 10
+dmax <<- 50
 dgrid <<- 40
-d1 <<- 0.0307
-d2 <<- 0.0322
-d3 <<- 0.0375
+d1 <<- 30.7
+d2 <<- 32.2
+d3 <<- 37.5
 
 # Temperatur, Druck, relative Feuchte
 Tc <<- 20
@@ -43,7 +43,7 @@ rhmin <<- 0
 rhmax <<- 1
 
 # Nachommastellen Wertetabelle Optimierungstab
-g_digit <<- 6
+g_digit <<- 4
 
 # Basiswerte
 g_vpw <<- round(calcVaporPressureOfWater(Tc), digits = 0)
@@ -61,11 +61,11 @@ g_press_descr <<- "Luftdruck in Pascal"
 g_humid_descr <<- "Relative Luftfeuchte in Prozent"
 
 # Konstruktionsparameter
-g_thickness_descr <<- "Dicke der Lochplatten in m"
+g_thickness_descr <<- "Dicke der Lochplatten in mm"
 g_thickness_panel1_descr <<- "Dicke - Platte 1"
 g_thickness_panel2_descr <<- "Dicke - Platte 2"
 g_thickness_panel3_descr <<- "Dicke - Platte 3"
-g_radius_descr <<- "Radius der Loecher in m"
+g_radius_descr <<- "Radius der Loecher in mm"
 g_radius_panel1_descr <<- "Lochradius - Platte 1"
 g_radius_panel2_descr <<- "Lochradius - Platte 2"
 g_radius_panel3_descr <<- "Lochradius - Platte 3"
@@ -73,7 +73,7 @@ g_porosity_descr <<- "Porositaet (1 = 100%)"
 g_porosity_panel1_descr <<- "Porositaet - Platte 1"
 g_porosity_panel2_descr <<- "Porositaet - Platte 2"
 g_porosity_panel3_descr <<- "Porositaet - Platte 3"
-g_cavern_descr <<- "Dicke der Luftkavernen in m"
+g_cavern_descr <<- "Dicke der Luftkavernen in mm"
 g_cavern_panel1_descr <<- "Dicke - Kaverne 1"
 g_cavern_panel2_descr <<- "Dicke - Kaverne 2"
 g_cavern_panel3_descr <<- "Dicke - Kaverne 3"
@@ -102,7 +102,7 @@ g_absorption_window_rightEdge_descr <<-
 
 # Lochabstaende
 g_dist_holes_name <<- "Platte"
-g_dist_holes_expl <<- "Lochabstand (Mitte - Mitte) in m:"
+g_dist_holes_expl <<- "Lochabst. (Mitte - Mitte) in mm"
 
 # Berechnung Absorptionskennlinie
 g_lb_absorption <<- 100

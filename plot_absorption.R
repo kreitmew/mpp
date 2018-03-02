@@ -1,9 +1,9 @@
  plot(seq(g_lb_absorption, g_ub_absorption, by = g_no_of_calc_points),
        calcAbsorptionMPPVec(seq(g_lb_absorption, g_ub_absorption, by = g_no_of_calc_points),
                             g_environ = list(input$press, input$temp, input$humid/100),
-                            g_mpp = list(list(input$d1ui, input$d2ui, input$d3ui),
-                                         list(input$t1ui, input$t2ui, input$t3ui),
-                                         list(input$r1ui, input$r2ui, input$r3ui),
+                            g_mpp = list(list(input$d1ui/1000, input$d2ui/1000, input$d3ui/1000),
+                                         list(input$t1ui/1000, input$t2ui/1000, input$t3ui/1000),
+                                         list(input$r1ui/1000, input$r2ui/1000, input$r3ui/1000),
                                          list(input$phi1ui, input$phi2ui, input$phi3ui)),
                             model.fname = "calcSurfaceResistanceRuiz"),
        type = "l", xaxt="n", xlab = g_x_axis_descr, ylab = g_y_axis_descr, main = g_main_descr)

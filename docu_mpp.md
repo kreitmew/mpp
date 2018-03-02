@@ -40,9 +40,17 @@ einstellbaren Parametern eine Konfiguration zu finden, die die Absorptionsvorgab
 "Akustiksystem - Optimierung" findet der Anwender eine Funktion, die er &uuml;ber eine Schaltfl&auml;che starten kann und die 
 ihm eine Wertkonfiguration errechnet, die den Absorptionsvorgaben gerecht wird.
 
+## Modellvergleich
+
+Auf dem Reiter "Akustiksystem - Modellvergleich" findet man neben dem von Atalla und Sgard [1] entwickelten
+Modell (inkl. N&auml;herungen desselben) auch einen Vergleich zum Modell von Maa [3].
+
 
 ## Literatur
 
 [1] Atalla, Noureddine und Sgard, Franck. "Modeling of perforated plates and screens using rigid frame porous models." Journal of sound and vibration 303.1-2 (2007): 195-208.
 
 [2] Fackler, Cameron Jeff. "Bayesian model selection for analysis and design of multilayer sound absorbers." (2014).
+
+[3] Maa, Dah-You. "Potential of microperforated panel absorber." the Journal of the Acoustical Society of America 104.5
+(1998): 2861-2866.

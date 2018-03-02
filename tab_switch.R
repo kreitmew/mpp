@@ -2,9 +2,9 @@ if( input$tabs == "tabRGL" ){
   withProgress(message = "Die 3D-Grafik wird erzeugt bzw. aktualisiert...", value = 0.5, {
     output$rglplot <- renderRglwidget(
       do.call(generateRGLExample, 
-              prepareInputRGL(c(input$d1ui, input$d2ui, input$d3ui), 
-                              c(input$t1ui, input$t2ui, input$t3ui), 
-                              c(input$r1ui, input$r2ui, input$r3ui), 
+              prepareInputRGL(c(input$d1ui/1000, input$d2ui/1000, input$d3ui/1000), 
+                              c(input$t1ui/1000, input$t2ui/1000, input$t3ui/1000), 
+                              c(input$r1ui/1000, input$r2ui/1000, input$r3ui/1000), 
                               c(input$phi1ui, input$phi2ui, input$phi3ui))
       )
     )
